@@ -1,4 +1,4 @@
-import { Link } from "react-router"
+import { createSearchParams, Link } from "react-router"
 
 const getPaginationData = (totalPages, currentPage) => {
   let currentThree = []
@@ -25,9 +25,18 @@ const getPaginationData = (totalPages, currentPage) => {
 }
 
 
-const PaginationBar = ({totalPages, page}) => {
+const PaginationBar = ({searchParams, totalPages, page}) => {
 
   let { currentThree, paginationEdges, ellipsis } = getPaginationData(totalPages, page)
+
+  const handleLinkClick = (pageNumber) => {
+    const newParams = {
+      ...Object.fromEntries(searchParams),
+      page: pageNumber
+    };
+
+    return createSearchParams(newParams).toString();
+  };
 
   return (
     <nav aria-label="Page navigation example">
@@ -35,7 +44,7 @@ const PaginationBar = ({totalPages, page}) => {
         { 
           page !== 1 ? 
           <li className="page-item">
-            <Link className="page-link" to={`/tasks?page=${page-1}`}>
+            <Link className="page-link" to={`?${handleLinkClick(page-1)}`}>
               Previous
             </Link>
           </li> 
@@ -50,7 +59,7 @@ const PaginationBar = ({totalPages, page}) => {
         { 
           paginationEdges.left ? 
           <li className="page-item">
-            <Link className="page-link" to={`/tasks?page=${paginationEdges.left}`}>
+            <Link className="page-link" to={`?${handleLinkClick(paginationEdges.left)}`}>
               {paginationEdges.left}
             </Link>
           </li> 
@@ -62,7 +71,7 @@ const PaginationBar = ({totalPages, page}) => {
         {
           currentThree.map(pageNumber => 
             <li key={pageNumber} className="page-item">
-              <Link className="page-link" to={`/tasks?page=${pageNumber}`}>
+              <Link className="page-link" to={`?${handleLinkClick(pageNumber)}`}>
                 {pageNumber}
               </Link>
             </li>
@@ -74,7 +83,7 @@ const PaginationBar = ({totalPages, page}) => {
         { 
           paginationEdges.right ? 
           <li className="page-item">
-            <Link className="page-link" to={`/tasks?page=${paginationEdges.right}`}>
+            <Link className="page-link" to={`?${handleLinkClick(paginationEdges.right)}`}>
               {paginationEdges.right}
             </Link>
           </li> 
@@ -85,7 +94,7 @@ const PaginationBar = ({totalPages, page}) => {
         { 
           page !== totalPages ? 
           <li className="page-item">
-            <Link className="page-link" to={`/tasks?page=${page+1}`}>
+            <Link className="page-link" to={`?${handleLinkClick(page+1)}`}>
               Next
             </Link>
           </li> 

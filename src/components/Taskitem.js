@@ -31,8 +31,8 @@ const Taskitem = ({id, task_title, description, category, priority, due_date}) =
               <p>{description}</p>
             </div>
             <div className={"col-sm-3 text-lg-end"}>
-              <Link to={`/add-task?edit=true&id=${id}`} className={"btn btn-info btn-sm"} role="button">Edit</Link>
-              <button style={{marginLeft: "3px"}} className={"btn btn-danger btn-sm"} onClick={onDeleteHandler}>Delete</button>
+              <Link to={`/add-task?edit=true&id=${id}`} className={"btn btn-info btn-sm mb-1"} role="button">Edit</Link>
+              <button style={{marginLeft: "3px"}} className={"btn btn-danger btn-sm mb-1"} onClick={onDeleteHandler}>Delete</button>
             </div>
           </div>
         </div>
